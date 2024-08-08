@@ -1,16 +1,20 @@
+'''GUI password generator'''
+
 import random
 import string
-import pyperclip
 import tkinter as tk
 from tkinter import messagebox
+import pyperclip
 
 def generate_password(length=50):
+    '''Function to generate password of desired length'''
     characters = string.ascii_letters + string.digits + string.punctuation
     password = ''.join(random.choice(characters) for i in range(length))
     pyperclip.copy(password)
     return password
 
 def on_generate_button_click():
+    '''Action on click: quit, default length, given length, or error'''
     user_input = entry.get()
     if user_input.lower() in ["q", "quit"]:
         exit_pw_generator()
@@ -23,27 +27,33 @@ def on_generate_button_click():
             show_password(password)
         except ValueError:
             password = generate_password()
-            messagebox.showerror("Invalid Input", "Invalid value, a password with 50 characters was generated.")
+            messagebox.showerror(
+                title="Invalid Input",
+                message="Invalid value, a password with 50 characters was generated.")
             show_password(password)
 
 def show_password(password):
+    '''show password'''
     result_label.config(text=f"Password generated and copied to clipboard:\n {password}")
 
 def exit_pw_generator():
+    '''exit gui'''
     root.quit()
 
 # GUI Set-Up
 root = tk.Tk()
 root.title("Password Generator")
 
-window_width = 400
-window_height = 225
-root.geometry(f"{window_width}x{window_height}")
+WINDOW_WIDTH = 400
+WINDOW_HEIGHT = 225
+root.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}")
 
 frame = tk.Frame(root, padx=10, pady=10)
 frame.pack(padx=10, pady=10, expand=True, fill='both')
 
-label = tk.Label(frame, text="Enter desired password length (leave blank for default length of 50):")
+label = tk.Label(
+    frame,
+    text="Enter desired password length (leave blank for default length of 50):")
 label.pack()
 
 entry = tk.Entry(frame, width=5, justify='center')
