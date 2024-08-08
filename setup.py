@@ -7,7 +7,7 @@ executables = [
     Executable(
         script="gui_password_generator.py",
         base="Win32GUI",
-        icon="assets\icons\lock_and_key.ico"
+        icon="assets/icons/lock_and_key_final.ico"
     )
 ]
 
